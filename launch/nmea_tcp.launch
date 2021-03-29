@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <rosparam command="load" file="$(find nmea_ros_bridge)/config/tcp_config.yaml"/>
+  <node pkg="nmea_ros_bridge" name="nmea_tcp" type="nmea_tcp" />
+</launch>
