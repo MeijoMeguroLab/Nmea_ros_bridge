@@ -21,3 +21,7 @@ include_directories(include
 add_executable(nmea_tcp src/nmea_tcp.cpp)
 target_link_libraries(nmea_tcp ${catkin_LIBRARIES})
 add_dependencies(nmea_tcp ${catkin_EXPORTED_TARGETS})
+
+add_executable(nmea_udp src/nmea_udp.cpp)
+target_link_libraries(nmea_udp ${catkin_LIBRARIES})
+add_dependencies(nmea_udp ${catkin_EXPORTED_TARGETS})

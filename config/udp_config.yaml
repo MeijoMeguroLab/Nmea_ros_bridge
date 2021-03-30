@@ -1,6 +1,6 @@
-nmea_tcp:
+nmea_udp:
   address: "192.168.53.181"              # Destination IPAdress()
-  port: 62002                            # Destination Port()
+  port: 62004                            # Destination Port()
   nmea_topic: nmea_sentence              # Publish NMEA topic name
   frame_id: sentence                     # NMEA topic frame_id
   rate: 0.0                              # watch receive buffer rate

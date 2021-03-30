@@ -193,11 +193,11 @@ int main(int argc, char** argv)
   double rate;
 
   // Read parameters
-  node_handle_.param("/nmea_tcp/address", address, std::string("127.0.0.1"));
-  node_handle_.param("/nmea_tcp/port", port, 28003);
-  node_handle_.param("/nmea_tcp/nmea_topic", nmea_topic, std::string("nmea_sentence"));
-  node_handle_.param("/nmea_tcp/frame_id", frame_id, std::string("sentence"));
-  node_handle_.param("/nmea_tcp/rate", rate, 0.0);
+  node_handle_.param("/nmea_udp/address", address, std::string("127.0.0.1"));
+  node_handle_.param("/nmea_udp/port", port, 28003);
+  node_handle_.param("/nmea_udp/nmea_topic", nmea_topic, std::string("nmea_sentence"));
+  node_handle_.param("/nmea_udp/frame_id", frame_id, std::string("sentence"));
+  node_handle_.param("/nmea_udp/rate", rate, 0.0);
 
   pub = node_handle_.advertise<nmea_msgs::Sentence>(nmea_topic, 10);
 
@@ -205,17 +205,18 @@ int main(int argc, char** argv)
   ROS_INFO("PORT: %d", port);
   ROS_INFO("RATE: %.1lf", rate);
 
-  sock = socket(AF_INET, SOCK_STREAM, 0);
+  sock = socket(AF_INET, SOCK_DGRAM, 0);
 
   memset(&dstAddr, 0, sizeof(dstAddr));
   dstAddr.sin_family = AF_INET;
-  dstAddr.sin_addr.s_addr = inet_addr(address.c_str());
+  dstAddr.sin_addr.s_addr = INADDR_ANY;
   dstAddr.sin_port = htons(port);
 
   ros::Rate loop_rate(1.0);
   while (ros::ok())
   {
-    result = connect(sock, (struct sockaddr *) &dstAddr, sizeof(dstAddr));
+    //result = connect(sock, (struct sockaddr *) &dstAddr, sizeof(dstAddr));
+    result = bind(sock, (struct sockaddr *)&dstAddr, sizeof(dstAddr));
     if( result < 0 )
     {
       /* non-connect */
