@@ -1,0 +1,6 @@
+nmea_serial:
+  port: "/dev/ttyUSB0"                   # Destination Port()
+  baud: 115200                           # baudrate
+  nmea_topic: nmea_sentence              # Publish NMEA topic name
+  frame_id: sentence                     # NMEA topic frame_id
+  rate: 100.0                            # watch receive buffer rate
